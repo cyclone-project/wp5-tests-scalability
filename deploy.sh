@@ -44,14 +44,14 @@ while ( true ) ; do
   sleep 30
 done
 
-SERVER_SCRIPT_NAME="g5k_script_serveur.sh"
+SERVER_SCRIPT_NAME="server.sh"
 SERVER_SCRIPT="$(dirname $0)/${SERVER_SCRIPT_NAME}"
 echo "Copying script to server ${SERVER_SCRIPT}"
 scp ${SERVER_SCRIPT} root@${SERVER_NODE}:
-scp $(dirname $0)/get_server_ip.sh root@${SERVER_NODE}:
+scp $(dirname $0)/server_get_ip.sh root@${SERVER_NODE}:
 scp ${MYLOOPSFILENAME} root@${SERVER_NODE}:
 
-SERVER_IP=$(ssh root@${SERVER_NODE} './get_server_ip.sh')
+SERVER_IP=$(ssh root@${SERVER_NODE} './server_get_ip.sh')
 echo "Server IP : ${SERVER_IP}"
 echo "ssh root@${SERVER_NODE} ./${SERVER_SCRIPT_NAME} ${NB_CLIENTS} > ${SERVER_LOG_FILE}"
 ssh root@${SERVER_NODE} "./${SERVER_SCRIPT_NAME} ${NB_CLIENTS}" > ${SERVER_LOG_FILE} 2>&1 &
@@ -63,7 +63,7 @@ while ( true ) ; do
   sleep 30
 done
 
-CLIENT_SCRIPT_NAME="g5k_script_client.sh"
+CLIENT_SCRIPT_NAME="client.sh"
 CLIENT_SCRIPT="$(dirname $0)/${CLIENT_SCRIPT_NAME}"
 echo "Copying script to clients ${CLIENT_SCRIPT}"
 for node in $(cat ${CLIENT_NODES_FILE} ) ; do 

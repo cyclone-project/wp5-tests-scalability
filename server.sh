@@ -265,7 +265,7 @@ for myloop in `cat ${MYLOOPSFILE}` ; do
     touch file${myloop}.toctoc
 
     MEGA_BYTE=$(expr 1024 '*' 1024)
-    dd if=/dev/zero of=file1.toctoc bs=${MEGA_BYTE} count=${myloop}
+    dd if=/dev/zero of=file${myloop}.toctoc bs=${MEGA_BYTE} count=${myloop}
 
     mv file${myloop}.toctoc file${myloop}
 

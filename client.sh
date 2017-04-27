@@ -329,13 +329,14 @@ for myloop in `cat ${MYLOOPSFILE}` ; do
     while [ ! -e file${myloop} ]
     do
         info_message "Waiting to download file ${myloop} of ${myloop} MB"
-        (time wget 10.8.0.1/file${myloop}) > time${myloop}.txt 2>&1
+        (time -p wget --quiet 10.8.0.1/file${myloop}) > time${myloop}.txt 2>&1
         sleep 1
     done
     info_message "Done Downloading file${myloop}"
     touch $ip_address_of_tap0_interface.clientdownload${myloop}
 
-    (echo -n "${myloop} : " ; more time${myloop}.txt | grep real | awk -F " " "{print $2}" ) > timefile${myloop}.txt 2>&1
+#    (echo -n "${myloop} : " ; more time${myloop}.txt | grep real | awk -F " " "{print $2}" ) > timefile${myloop}.txt 2>&1
+    (more time${myloop}.txt | grep real | awk -F ' ' '{print $2}' ) > timefile${myloop}.txt 2>&1
     cat timefile${myloop}.txt >> $ip_address_of_tap0_interface.txt
 done
 

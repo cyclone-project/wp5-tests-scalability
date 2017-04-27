@@ -52,6 +52,11 @@ scp $(dirname $0)/server_get_ip.sh root@${SERVER_NODE}:
 scp ${MYLOOPSFILENAME} root@${SERVER_NODE}:
 
 SERVER_IP=$(ssh root@${SERVER_NODE} './server_get_ip.sh')
+if [ -z "${SERVER_IP}" ] ; then
+    echo "SERVER_IP no set"
+    exit 1
+fi
+
 echo "Server IP : ${SERVER_IP}"
 echo "ssh root@${SERVER_NODE} ./${SERVER_SCRIPT_NAME} ${NB_CLIENTS} > ${SERVER_LOG_FILE}"
 ssh root@${SERVER_NODE} "./${SERVER_SCRIPT_NAME} ${NB_CLIENTS}" > ${SERVER_LOG_FILE} 2>&1 &

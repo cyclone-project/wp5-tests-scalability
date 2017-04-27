@@ -84,7 +84,7 @@ amount_of_clients="$1"
 
 apt-get -y update && apt-get -y upgrade && apt-get -y dist-upgrade
 if [ $? -ne 0 ] ; then
-    fatal "can't get the CNSMO archive"
+    fatal "Can't apt-get update"
 fi
 
 apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D

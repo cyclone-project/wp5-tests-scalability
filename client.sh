@@ -343,6 +343,4 @@ done
 
 cp $ip_address_of_tap0_interface.txt $ip_address_of_tap0_interface.clienttimefile
 
-rm -f $ip_address_of_tap0_interface.clientready
-
 exit $ERR_OK

@@ -10,8 +10,8 @@ SCRIPTNAME="$0"
 DATE_FORMAT='--rfc-3339=seconds'
 
 MYLOOPSFILENAME="myloops"
-LOG_FILE="${ROOTDIR}/deploy.log"
-touch ${LOG_FILE}
+
+
 
 #=============================================================================
 #  Function  debug_message (Message part, ...)
@@ -50,6 +50,14 @@ fatal ()
 }
 
 
+if [ -z "${OAR_JOBID}" ] ; then
+  fatal "variable OAR_JOBID is not set"
+fi
+
+LOG_FILE="${ROOTDIR}/${OAR_JOBID}-deploy.log"
+touch ${LOG_FILE}
+
+
 if [ ! -r ${MYLOOPSFILENAME} ] ; then 
   fatal "Can't find ${MYLOOPSFILENAME}"
 fi
@@ -63,7 +71,6 @@ SERVER_NODE=$(sort -u $OAR_NODEFILE | tail -1)
 
 if [ -z "$SERVER_NODE" ] ; then
   fatal "Can't find a server node"
-  exit 1
 fi
 
 CLIENT_NODES_FILE="$(dirname $0)/$(basename $OAR_NODEFILE)-clientnodes"

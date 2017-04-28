@@ -321,7 +321,7 @@ do
 done
 
 echo "#!/bin/bash " >> servertimefile.sh
-echo -n "paste " >> servertimefile.sh
+echo -n "paste ${MYLOOPSFILE} " >> servertimefile.sh
 
 amount_of_deployed_clients=`ls -lR *.clienttimefile | wc -l`
 counter_clients=0
